@@ -1,0 +1,172 @@
+﻿@model PaginatedList<Project>
+
+
+@{
+    ViewData["Title"] = "Search";
+    string alterClass = "";
+}
+
+<h3>Search</h3>
+<hr />
+<br />
+
+<form class="form-horizontal" asp-action="Index" method="get">
+    <div class="form-group row">
+        <label for="projectStatusFilterDropDown" class="col-form-label col-sm-3 pt-0 col-form-label align-middle mt-1 mb-1">Search by Project Status</label>
+        <div class="col-sm-4">
+            <select class="form-control" id="projectStatusFilterDropDown" name="ProjectStatusFilter">
+                <option></option>
+                @foreach (var i in ViewBag.StatusFilters)
+                {
+                    @if (i.Equals(ViewBag.CurrentFilter))
+                    {
+                        <option selected>@i</option>
+                    }
+                    else
+                    {
+                        <option>@i</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="searchId" class="col-form-label col-sm-3 pt-0 col-form-label align-middle mt-1 mb-1">Search by Project ID</label>
+        <div class="col-sm-4">
+            <input name="searchId" id="searchId" value="@ViewBag.searchId" type="number" class="form-control" min="0" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="searchCompanyName" class="col-form-label col-sm-3 pt-0 col-form-label align-middle mt-1 mb-1">Search by Organization Name</label>
+        <div class="col-sm-4">
+            <input name="searchCompanyName" id="searchCompanyName" value="@ViewBag.searchCompanyName" type="text" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="searchPartnerName" class="col-form-label col-sm-3 pt-0 col-form-label align-middle mt-1 mb-1">Search by Contact Name</label>
+        <div class="col-sm-4">
+            <input name="searchPartnerName" id="searchPartnerName" value="@ViewBag.searchPartnerName" type="text" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="searchPartnerPhone" class="col-form-label col-sm-3 pt-0 col-form-label align-middle mt-1 mb-1">Search by Contact Phone</label>
+        <div class="col-sm-4">
+            <input name="searchPartnerPhone" id="searchPartnerPhone" value="@ViewBag.searchPartnerPhone" type="text" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="searchPartnerEmail" class="col-form-label col-sm-3 pt-0 col-form-label align-middle mt-1 mb-1">Search by Contact Email</label>
+        <div class="col-sm-4">
+            <input name="searchPartnerEmail" id="searchPartnerEmail" value="@ViewBag.searchPartnerEmail" type="email" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="searchKeywords" class="col-form-label col-sm-3 pt-0 col-form-label align-middle mt-1 mb-1">Search by Keywords</label>
+        <div class="col-sm-4">
+            <input name="searchKeywords" id="searchKeywords" type="text" value="@ViewBag.searchKeywords" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-7">
+            <div class="float-right">
+                <div class="align-self-center mt-1 mb-1" style="display:inline-block;"><a asp-action="Index">All Projects</a></div>&nbsp;&nbsp;
+                <input type="submit" value="Search" class="btn btn-danger progressColor1" style="display:inline-block;" />
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<h3>Search Results</h3>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ProjectId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].CompanyInformation.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].CompanyInformation.ContactName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ProjectStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].SubmissionDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            int timediff = Convert.ToInt32((Convert.ToDateTime(item.SubmissionDate.ToString()) - DateTime.Now).TotalDays * -1);
+            if (item.ProposalInformation.Urgency.Contains("Y"))
+            {
+                alterClass = "urgent";
+            }
+            else
+            {
+                alterClass = "";
+            }
+            <tr class="@alterClass">
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProjectId">
+                        <b>@Html.DisplayFor(modelItem => item.ProjectId)</b>
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyInformation.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyInformation.ContactName)
+                </td>
+
+                @if (item.ProjectStatus.Contains("PENDING") && timediff >= 14)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectStatus) &nbsp; <span class="badge badge-pill badge-warning">@timediff days</span>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectStatus)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubmissionDate)
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <span class="float-right">
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-danger btn-sm progressColor1 @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-danger btn-sm progressColor1 @nextDisabled">
+            Next
+        </a>
+    </span>
+</div>
+<br />
+<br />
+

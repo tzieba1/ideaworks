@@ -1,0 +1,140 @@
+﻿@model ideaworks.Models.ThirdStage
+
+@{
+    ViewData["Title"] = "Project (projectID) - Funding Application";
+}
+
+<h3>Funding Application (stage 3)</h3>
+<hr />
+<br />
+
+<div>
+
+<div class="row">
+    <div class="col">
+        @Html.DisplayNameFor(model => model.ProjectId) : <b> @Html.DisplayFor(model => model.ProjectId)</b>
+    </div>
+    <div class="col">
+        <!-- @@Html.DisplayNameFor(model => model.ProjectStatus) : <b> @@Html.DisplayFor(model => model.ProjectStatus) </b> -->
+    </div>
+    <div class="col">
+        <!-- @@Html.DisplayNameFor(model => model.SubmissionDate) : <b> @@Html.DisplayFor(model => model.SubmissionDate)</b> -->
+    </div>
+    <!--@@if (Model.ProposalInformation.Urgency.Contains("Y"))
+    {
+        <text>
+            <div class="col">
+                <b><p class="text-danger">May require urgent attention!</p></b>
+            </div>
+        </text>
+    }
+        -->
+</div>
+<br />
+
+<h4>Funding Application Notes</h4>
+<hr />
+
+<form asp-action="Create">
+    <fieldset class="form-group">
+        <div class="row align-middle">
+            <legend class="col-form-label col-sm-4 pt-0"><label asp-for="IsApplicable" class="control-label m-0 p-0"></label></legend>
+            <div class="col-sm-8">
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.IsApplicable, "Y", new { @class = "form-check-input isApplicable", @id = "IsApplicableY" })
+                    @Html.Label("Yes", "Yes", new { @for = "IsApplicableY", @class = "form-check-label" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.IsApplicable, "N", new { @class = "form-check-input isApplicable", @id = "IsApplicableN" })
+                    @Html.Label("No", "No", new { @for = "IsApplicableN", @class = "form-check-label" })
+                </div>
+                <span asp-validation-for="IsApplicable" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+    <div id="thirdStageInputs">
+        <table class="table table-bordered">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <tbody>
+                <div class="form-group">
+                    <tr class="table-active">
+                        <td colspan="4"><label asp-for="IdentifiedProjectProblems" class="control-label m-0 p-0"></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <textarea asp-for="IdentifiedProjectProblems" class="form-control"></textarea>
+                            <span asp-validation-for="IdentifiedProjectProblems" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </div>
+                <div class="form-group">
+                    <tr class="table-active">
+                        <td colspan="4" class="font-weight-bold"><label asp-for="InternalApproval" class="control-label m-0 p-0"></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <textarea asp-for="InternalApproval" class="form-control"></textarea>
+                            <span asp-validation-for="InternalApproval" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </div>
+                <div class="form-group">
+                    <tr class="table-active">
+                        <td colspan="4" class="font-weight-bold"><label asp-for="ApplicationForFunding" class="control-label m-0 p-0"></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <textarea asp-for="ApplicationForFunding" class="form-control"></textarea>
+                            <span asp-validation-for="ApplicationForFunding" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </div>
+
+                <div class="form-group">
+                    <tr class="table-active">
+                        <td colspan="4" class="font-weight-bold"><label asp-for="Status" class="control-label m-0 p-0"></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <input asp-for="Status" class="form-control" maxlength="49" />
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </div>
+            </tbody>
+        </table>
+        <br />
+        <h4>Funding Application</h4>
+        <hr />
+        <fieldset class="form-group">
+            <div class="row align-middle">
+                <legend class="col-form-label col-sm-4 pt-0"><label asp-for="IsFundingApproved" class="control-label m-0 p-0"></label></legend>
+                <div class="col-sm-8">
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(model => model.IsFundingApproved, "Y", new { @class = "form-check-input", @id = "IsFundingApprovedY" })
+                        @Html.Label("Yes", "Yes", new { @for = "IsFundingApprovedY", @class = "form-check-label" })
+                    </div>
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(model => model.IsFundingApproved, "N", new { @class = "form-check-input", @id = "IsFundingApprovedN" })
+                        @Html.Label("No", "No", new { @for = "IsFundingApprovedN", @class = "form-check-label" })
+                    </div>
+                    <span asp-validation-for="IsFundingApproved" class="text-danger"></span>
+                </div>
+            </div>
+    </div>
+    <div class="text-center">
+        <input type="submit" value="Apply changes" class="btn-lg btn-danger progressColor1" enabled>
+    </div>
+
+        </fieldset>
+    
+
+</form>
+<br />
+<div class="text-center">
+    <a asp-controller="Home" asp-action="Index">Discard and return to Project List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

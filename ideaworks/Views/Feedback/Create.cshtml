@@ -1,0 +1,142 @@
+﻿@model ideaworks.Models.Project
+
+@{
+    ViewData["Title"] = "Decision";
+}
+
+<h3>Decision</h3>
+<hr />
+<br />
+
+
+
+<div class="row">
+    <div class="col">
+        @Html.DisplayNameFor(model => model.ProjectId) : <b> @Html.DisplayFor(model => model.ProjectId)</b>
+    </div>
+    <div class="col">
+        @Html.DisplayNameFor(model => model.ProjectStatus) : <b> @Html.DisplayFor(model => model.ProjectStatus) </b>
+    </div>
+    <div class="col">
+        @Html.DisplayNameFor(model => model.SubmissionDate) : <b> @Html.DisplayFor(model => model.SubmissionDate)</b>
+    </div>
+    @if (Model.ProposalInformation.Urgency.Contains("Y"))
+    {
+        <text>
+            <div class="col">
+                <b><p class="text-danger">May require urgent attention!</p></b>
+            </div>
+        </text>
+    }
+
+</div>
+<br />
+
+<h4>Set Project Status</h4>
+<hr />
+@{ 
+    var thirdStage = (ViewBag.thirdStageRequired == "No" ? "Not Required" : ViewBag.thirdStageStatus);
+}
+
+<div class="row">
+    <p class="col-sm-5 pt-0 col-form-label align-middle">Is this project feasible for IDEAWORKS?</p>
+    <div class="col-sm-2">
+        <p class="font-weight-bold">@ViewBag.firstStageStatus</p>
+    </div>
+</div>
+<div class="row">
+    <p class="col-sm-5 pt-0 col-form-label align-middle">Can an IDEAWORKS center take the project on?</p>
+    <div class="col-sm-2">
+        <p class="font-weight-bold">@ViewBag.secondStageStatus</p>
+    </div>
+</div>
+<div class="row">
+    <p class="col-sm-5 pt-0 col-form-label align-middle">Is funding approved?</p>
+    <div class="col-sm-2">
+        <p class="font-weight-bold">@thirdStage</p>
+    </div>
+</div>
+<br />
+
+<form class="form-horizontal" asp-action="ChangeStatus" method="post">
+    <div class="form-group align-middle">
+        <div class="row align-middle">
+            <label for="projectStatus" class="col-form-label col-sm-2 pt-0 col-form-label align-middle">Set project status to</label>
+            <div class="col-sm-3">
+                <select class="form-control" id="projectStatus" name="projectStatus">
+                    <option></option>
+                    @foreach (var i in ViewBag.Statuses)
+                    {
+                        @if (i.Equals(ViewBag.SuggestedStatus))
+                        {
+                            <option selected>@i</option>
+                        }
+                        else
+                        {
+                            <option>@i</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" value="Set Status" class="btn btn-danger progressColor1">
+            </div>
+        </div>
+    </div>
+</form>
+
+<br />
+<h4>Send Feedback</h4>
+<hr />
+
+<form asp-action="Create" id="feedbackForm">
+
+    <div class="form-group">
+
+        <div class="row align-middle">
+            <legend class="col-form-label col-sm-3 pt-0"><label class="control-label">Email will be sent to:  </label></legend>
+            <div class="col-sm-9">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="contactEmailCheckBox" id="contactEmailCheckBox" checked>
+                    <label class="form-check-label" for="contactEmailCheckBox">
+                        Contact Email: @Html.DisplayFor(model => model.CompanyInformation.Email)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="authroizedEmailCheckBox" id="authroizedEmailCheckBox">
+                    <label class="form-check-label" for="authroizedEmailCheckBox">
+                        Representative Email: @Html.DisplayFor(model => model.ProposalInformation.AuthorizedRepresentativeEmail)
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Evaluation.Feedback" class="control-label m-0 p-0">Feedback text:</label>
+        <textarea asp-for="Evaluation.Feedback" name="feedbackText" class="form-control" rows="4" required></textarea>
+        <span asp-validation-for="Evaluation.Feedback" class="text-danger"></span>
+        <br />
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="emailAlert" style="display: none;">
+            Feedback email has been sent successfully.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Send Feedback" class="btn-lg btn-danger progressColor1 float-right">
+    </div>
+</form>
+
+
+<br />
+<br />
+<br />
+<div class="text-center">
+    <a asp-controller="Home" asp-action="Index">Return to Project List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

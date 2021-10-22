@@ -1,0 +1,171 @@
+﻿@model ideaworks.Models.ProposalInformation
+
+@{
+    ViewData["Title"] = "Additional Information";
+    Layout = "_LayoutForm";
+}
+
+<div class="progress" style="height: 25px;">
+    <div class="progress-bar progressColor1" role="progressbar" style="width: 33.33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="99">Company Information</div>
+    <div class="progress-bar progressColor2" role="progressbar" style="width: 33.33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="99">Additional Information</div>
+    <div class="progress-bar" role="progressbar" style="width: 33.33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="99">About Your Challenge</div>
+</div>
+
+<hr />
+
+<form asp-action="Create" class="form-horizontal" id="additionalInformation">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+    <input asp-for="StageId" class="form-control" type="hidden" value="1">
+
+
+    <fieldset>
+        <div class="row">
+            <legend class="col-form-label col-sm-4 pt-0"><label asp-for="Urgency"></label></legend>
+            <div class="col-sm-8">
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.Urgency, "Y", new { @class = "form-check-input", @id = "urgentY" })
+                    @Html.Label("Yes", "Yes", new { @for = "urgentY", @class = "form-check-label" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.Urgency, "N", new { @class = "form-check-input", @id = "urgentN" })
+                    @Html.Label("No", "No", new { @for = "urgentN", @class = "form-check-label" })
+                </div>
+                <span asp-validation-for="Urgency" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+
+
+
+
+
+
+    <div class="form-group row">
+        <label asp-for="ParentOrSubsidiary" class="control-label col-sm-4 col-form-label"></label>
+        <div class="col-sm-8">
+            
+            <select asp-for="ParentOrSubsidiary" class="form-control custom-select" autofocus>
+                <option selected></option>
+                <option value="Parent">Parent Organization</option>
+                <option value="Subsidiary">Subsidiary Organization</option>
+            </select>
+            <span asp-validation-for="ParentOrSubsidiary" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="AuthorizedRepresentativeName" class="control-label col-sm-4 col-form-label"></label>
+        <div class="col-sm-8">
+            <input asp-for="AuthorizedRepresentativeName" class="form-control" />
+            <span asp-validation-for="AuthorizedRepresentativeName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="AuthorizedRepresentativePosition" class="control-label col-sm-4 col-form-label"></label>
+        <div class="col-sm-8">
+            <input asp-for="AuthorizedRepresentativePosition" class="form-control" />
+            <span asp-validation-for="AuthorizedRepresentativePosition" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="AuthorizedRepresentativePhone" class="control-label col-sm-4 col-form-label"></label>
+        <div class="col-sm-8">
+            <input asp-for="AuthorizedRepresentativePhone" class="form-control" />
+            <span asp-validation-for="AuthorizedRepresentativePhone" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="AuthorizedRepresentativeEmail" class="control-label col-sm-4 col-form-label"></label>
+        <div class="col-sm-8">
+            <input asp-for="AuthorizedRepresentativeEmail" class="form-control" />
+            <span asp-validation-for="AuthorizedRepresentativeEmail" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="AreaOfResearch" class="control-label col-sm-4 col-form-label"></label>
+        <div class="col-sm-8">
+            <select asp-for="AreaOfResearch" class="form-control custom-select" autofocus>
+                <option selected></option>
+                <option value="Additive Manufacturing (AMIC)">Additive Manufacturing (AMIC)</option>
+                <option value="Digital Health (MEDIC)">Digital Health (MEDIC)</option>
+                <option value="Energy & Power (EPIC)">Energy & Power (EPIC)</option>
+                <option value="Medical Technologies (MTIC)">Medical Technologies (MTIC)</option>
+                <option value="Industrial Internet of Things (IIOT)">Industrial Internet of Things (IIOT)</option>
+                <option value="Argumented & Virtual Reality">Argumented & Virtual Reality</option>
+                <option value="Business Intelligence and Data Analytics">Business Intelligence and Data Analytics</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Digital Accessability">Digital Accessability</option>
+                <option value="Digital Transformation">Digital Transformation</option>
+                <option value="IT Process Optimization">IT Process Optimization</option>
+                <option value="Remotely Piloted Aircraft Systems (RPAS)">Remotely Piloted Aircraft Systems (RPAS)</option>
+                <option value="Student Success">Student Success</option>
+                <option value="Social Innovation">Social Innovation</option>
+                <option value="Sustainability">Sustainability</option>
+                <option value="Other">Other</option>
+            </select>
+            <span asp-validation-for="AreaOfResearch" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label asp-for="NumberOfEmployeesInCanada" class="control-label col-sm-4 col-form-label"></label>
+        <div class="col-sm-2">
+            <input asp-for="NumberOfEmployeesInCanada" class="form-control" min="0" />
+            <span asp-validation-for="NumberOfEmployeesInCanada" class="text-danger "></span>
+        </div>
+        <label asp-for="NumberOfResearchStaffInCanada" class="control-label col-sm-4 col-form-label"></label>
+        <div class="col-sm-2">
+            <input asp-for="NumberOfResearchStaffInCanada" class="form-control" min="0" />
+            <span asp-validation-for="NumberOfResearchStaffInCanada" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="SuggestedBy" class="control-label col-sm-4 col-form-label"></label>
+        <div class="col-sm-8">
+            <select asp-for="SuggestedBy" class="form-control custom-select" autofocus>
+                <option selected></option>
+                <option value="Website">Website</option>
+                <option value="Mohawk Faculty/Staff">Mohawk Faculty/Staff</option>
+                <option value="Hamilton Economic Development">Hamilton Economic Development</option>
+                <option value="Burlington Economic Development">Burlington Economic Development</option>
+                <option value="HalTech">HalTech</option>
+                <option value="Innovation Factory">Innovation Factory</option>
+                <option value="Other Regional Innovation Centre">Other Regional Innovation Centre</option>
+                <option value="Other">Other</option>
+            </select>
+            <span asp-validation-for="SuggestedBy" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ExtraInformation" class="control-label"></label>
+        <textarea asp-for="ExtraInformation" class="form-control"></textarea>
+        <span asp-validation-for="ExtraInformation" class="text-danger"></span>
+    </div>
+
+    <div class="buttonContainer">
+        <div class="form-group" style='float: left;'>
+            <input type="submit" form="additionalInformation" asp-controller="ProposalInformations" asp-action="PreviousButtonClicked" value="Previous: Company Information" class="btn-lg btn-danger progressColor1" formnovalidate />
+        </div>
+        <div class="form-group" style='float: right;'>
+            <input type="submit" form="additionalInformation" value="Next: About Your Challenge" class="btn-lg btn-danger progressColor1" />
+        </div>
+    </div>
+
+</form>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

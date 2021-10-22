@@ -1,0 +1,212 @@
+﻿@model ideaworks.Models.CompanyInformation
+
+@{
+    ViewData["Title"] = "Company Information";
+    Layout = "_LayoutForm";
+}
+
+<div class="progress" style="height: 25px;">
+    <div class="progress-bar progressColor1" role="progressbar" style="width: 33.33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="99">Company Information</div>
+    <div class="progress-bar" role="progressbar" style="width: 33.33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="99">Additional Information</div>
+    <div class="progress-bar" role="progressbar" style="width: 33.33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="99">About Your Challenge</div>
+</div>
+
+<hr />
+    
+<form class="form-horizontal" id="companyInformation" asp-action="Create">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input asp-for="StageId" class="form-control" type="hidden" value="1">
+
+    <div class="form-group row">
+        <label asp-for="ContactName" class="control-label col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="ContactName" class="form-control"  data-toggle="tooltip" data-html="true" data-trigger="focus" title="Please enter your <b>First</b> and <b>Last</b> name" autofocus />
+            <span asp-validation-for="ContactName" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label asp-for="Email" class="control-label col-sm-2 col-form-label"></label>
+        <div class="col-sm-5">
+            <input asp-for="Email" class="form-control" data-toggle="tooltip" data-html="true" data-trigger="focus" title="Format: <b>name@example.com</b>" />
+            <span asp-validation-for="Email" class="text-danger "></span>
+        </div>
+        <label asp-for="Phone" class="control-label col-sm-2 col-form-label"></label>
+        <div class="col-sm-3">
+            <input asp-for="Phone" class="form-control" data-toggle="tooltip" data-html="true" data-trigger="focus" title="Format: <b>123 123 1234</b> (10 digits)" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label asp-for="CompanyName" class="control-label col-sm-2 col-form-label"></label>
+        <div class="col-sm-5">
+            <input asp-for="CompanyName" class="form-control" />
+            <span asp-validation-for="CompanyName" class="text-danger "></span>
+        </div>
+        <label asp-for="Website" class="control-label col-sm-2 col-form-label"></label>
+        <div class="col-sm-3">
+            <input asp-for="Website" class="form-control" data-toggle="tooltip" data-html="true" data-trigger="focus" title="Format: <b>example.com</b> or <b>www.example.com</b>" />
+            <span asp-validation-for="Website" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="CoreCompanyBusiness" class="control-label col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="CoreCompanyBusiness" class="form-control" />
+            <span asp-validation-for="CoreCompanyBusiness" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="YearsOfExistance" class="control-label col-sm-2 col-form-label"></label>
+        <div class="col-sm-4">
+            <input asp-for="YearsOfExistance" class="form-control" min="0" data-toggle="tooltip" data-html="true" data-trigger="focus" title="Please enter the number of years the organization has existed for" />
+            <span asp-validation-for="YearsOfExistance" class="text-danger "></span>
+        </div>
+        <label asp-for="NumberOfEmployees" class="control-label col-sm-3 col-form-label"></label>
+        <div class="col-sm-3">
+            <input asp-for="NumberOfEmployees" class="form-control" min="0" data-toggle="tooltip" data-html="true" data-trigger="focus" title="Please enter the number of people the organization employs" />
+            <span asp-validation-for="NumberOfEmployees" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <fieldset>
+        <div class="row">
+            <legend class="col-form-label col-sm-4 pt-0"><label asp-for="IsCanadianBased"></label></legend>
+            <div class="col-sm-8">
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.IsCanadianBased, "Y", new { @class = "form-check-input isCanadianBased", @id = "IsCanadianBasedY" })
+                    @Html.Label("Yes", "Yes", new { @for = "IsCanadianBasedY", @class = "form-check-label" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.IsCanadianBased, "N", new { @class = "form-check-input isCanadianBased", @id = "IsCanadianBasedN" })
+                    @Html.Label("No", "No", new { @for = "IsCanadianBasedN", @class = "form-check-label" })
+                </div>
+                <span asp-validation-for="IsCanadianBased" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group" id="isOntarioBased" disabled>
+        <div class="row">
+            <legend class="col-form-label col-sm-4 pt-0" ><label asp-for="IsOntarioBased"></label></legend>
+            <div class="col-sm-8">
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.IsOntarioBased, "Y", new { @class = "form-check-input", @id = "IsOntarioBasedY" })
+                    @Html.Label("Yes", "Yes", new { @for = "IsOntarioBasedY", @class = "form-check-label" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.IsOntarioBased, "N", new { @class = "form-check-input", @id = "IsOntarioBasedN" })
+                    @Html.Label("No", "No", new { @for = "IsOntarioBasedN", @class = "form-check-label" })
+                </div>
+                <span asp-validation-for="IsOntarioBased" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group row">
+        <label asp-for="OrganizationLocation" class="control-label col-sm-4 col-form-label"></label>
+        <div class="col-sm-8">
+            <input asp-for="OrganizationLocation" id="location" class="form-control" disabled/>
+            <span asp-validation-for="OrganizationLocation" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <fieldset class="form-group">
+        <div class="row">
+            <legend class="col-form-label col-sm-6 pt-0"><label asp-for="PriorCollaborationWithIdeaworks"></label></legend>
+            <div class="col-sm-6">
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.PriorCollaborationWithIdeaworks, "Y", new { @class = "form-check-input", @id = "PriorCollaborationWithIdeaworksY" })
+                    @Html.Label("Yes", "Yes", new { @for = "PriorCollaborationWithIdeaworksY", @class = "form-check-label" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.PriorCollaborationWithIdeaworks, "N", new { @class = "form-check-input", @id = "PriorCollaborationWithIdeaworksN" })
+                    @Html.Label("No", "No", new { @for = "PriorCollaborationWithIdeaworksN", @class = "form-check-label" })
+                </div>
+                <span asp-validation-for="PriorCollaborationWithIdeaworks" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="row">
+            <legend class="col-form-label col-sm-6 pt-0"><label asp-for="InternalResearchExists"></label></legend>
+            <div class="col-sm-6">
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.InternalResearchExists, "Y", new { @class = "form-check-input", @id = "InternalResearchExistsY" })
+                    @Html.Label("Yes", "Yes", new { @for = "InternalResearchExistsY", @class = "form-check-label" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.InternalResearchExists, "N", new { @class = "form-check-input", @id = "InternalResearchExistsN" })
+                    @Html.Label("No", "No", new { @for = "InternalResearchExistsN", @class = "form-check-label" })
+                </div>
+                <span asp-validation-for="InternalResearchExists" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="row">
+            <legend class="col-form-label col-sm-6 pt-0"><label asp-for="IntentionToHireStudents"></label></legend>
+            <div class="col-sm-6">
+
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.IntentionToHireStudents, "Y", new { @class = "form-check-input", @id = "IntentionToHireStudentsY" })
+                    @Html.Label("Yes", "Yes", new { @for = "IntentionToHireStudentsY", @class = "form-check-label" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.IntentionToHireStudents, "N", new { @class = "form-check-input", @id = "IntentionToHireStudentsN" })
+                    @Html.Label("No", "No", new { @for = "IntentionToHireStudentsN", @class = "form-check-label" })
+                </div>
+                <span asp-validation-for="IntentionToHireStudents" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="row">
+            <legend class="col-form-label col-sm-6 pt-0"><label asp-for="PreviousCollaborationWithResearch"></label></legend>
+            <div class="col-sm-6">
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.PreviousCollaborationWithResearch, "Y", new { @class = "form-check-input", @id = "PreviousCollaborationWithResearchY" })
+                    @Html.Label("Yes", "Yes", new { @for = "PreviousCollaborationWithResearchY", @class = "form-check-label" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.PreviousCollaborationWithResearch, "N", new { @class = "form-check-input", @id = "PreviousCollaborationWithResearchN" })
+                    @Html.Label("No", "No", new { @for = "PreviousCollaborationWithResearchN", @class = "form-check-label" })
+                </div>
+                <span asp-validation-for="PreviousCollaborationWithResearch" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+
+
+
+    <div class="buttonContainer">
+        <div style='float: left;'>
+
+        </div>
+        <div class="form-group" style='float: right;'>
+            <input type="submit" form="companyInformation" value="Next: Additional Information" class="btn-lg btn-danger progressColor1" />
+        </div>
+    </div>
+
+</form>
+    
+    
+        
+    
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

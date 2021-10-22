@@ -1,0 +1,62 @@
+﻿@model ideaworks.Models.ProjectInformation
+
+@{
+    ViewData["Title"] = "About Your Challenge";
+    Layout = "_LayoutForm";
+}
+
+<div class="progress" style="height: 25px;">
+    <div class="progress-bar progressColor1" role="progressbar" style="width: 33.33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="99">Company Information</div>
+    <div class="progress-bar progressColor2" role="progressbar" style="width: 33.33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="99">Additional Information</div>
+    <div class="progress-bar progressColor3" role="progressbar" style="width: 33.33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="99">About Your Challenge</div>
+</div>
+
+<hr />
+
+<form asp-action="Create" class="form-horizontal" id="projectInformation">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+    <input asp-for="StageId" class="form-control" type="hidden" value="1">
+
+    <div class="form-group">
+        <label asp-for="Challenges" class="control-label"></label>
+        <textarea asp-for="Challenges" class="form-control"></textarea>
+        <span asp-validation-for="Challenges" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjectImpact" class="control-label"></label>
+        <textarea asp-for="ProjectImpact" class="form-control"></textarea>
+        <span asp-validation-for="ProjectImpact" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjectUsage" class="control-label"></label>
+        <textarea asp-for="ProjectUsage" class="form-control"></textarea>
+        <span asp-validation-for="ProjectUsage" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjectOutcome" class="control-label"></label>
+        <textarea asp-for="ProjectOutcome" class="form-control"></textarea>
+        <span asp-validation-for="ProjectOutcome" class="text-danger"></span>
+    </div>
+
+    <div class="buttonContainer">
+        <div class="form-group" style='float: left;'>
+            <input type="submit" form="projectInformation" asp-controller="ProjectInformations" asp-action="PreviousButtonClicked" value="Previous: Additional Information" class="btn-lg btn-danger progressColor1" formnovalidate />
+        </div>
+        <div class="form-group" style='float: right;'>
+            <input type="submit" form="projectInformation" value="Submit!" class="btn-lg btn-danger progressColor1" />
+        </div>
+    </div>
+
+</form>
+
+        
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

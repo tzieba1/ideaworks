@@ -1,0 +1,132 @@
+﻿@model ideaworks.Models.FirstStage
+
+@{
+    ViewData["Title"] = "Project (projectID) - Preliminary Discussion";
+}
+
+<h3>Preliminary Discussion (stage 1)</h3>
+<hr />
+<br />
+
+<div>
+
+    <div class="row">
+        <div class="col">
+            @Html.DisplayNameFor(model => model.ProjectId) : <b> @Html.DisplayFor(model => model.ProjectId)</b>
+        </div>
+        <div class="col">
+            <!-- @@Html.DisplayNameFor(model => model.ProjectStatus) : <b> @@Html.DisplayFor(model => model.ProjectStatus) </b> -->
+        </div>
+        <div class="col">
+            <!-- @@Html.DisplayNameFor(model => model.SubmissionDate) : <b> @@Html.DisplayFor(model => model.SubmissionDate)</b> -->
+        </div>
+        <!--@@if (Model.ProposalInformation.Urgency.Contains("Y"))
+        {
+            <text>
+                <div class="col">
+                    <b><p class="text-danger">May require urgent attention!</p></b>
+                </div>
+            </text>
+        }
+            -->
+    </div>
+    <br />
+
+    <h4>Preliminary Discussion Notes</h4>
+    <hr />
+
+    <form asp-action="Create">
+        <table class="table table-bordered">
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <tbody>
+                <div class="form-group">
+                    <tr class="table-active">
+                        <td colspan="4"><label asp-for="TechnicalFeasibility" class="control-label m-0 p-0"></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <textarea asp-for="TechnicalFeasibility" class="form-control" ></textarea>
+                            <span asp-validation-for="TechnicalFeasibility" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </div>
+                <div class="form-group">
+                    <tr class="table-active">
+                        <td colspan="4" class="font-weight-bold"><label asp-for="TimingAndCriticality" class="control-label m-0 p-0"></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <textarea asp-for="TimingAndCriticality" class="form-control" ></textarea>
+                            <span asp-validation-for="TimingAndCriticality" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </div>
+                <div class="form-group">
+                    <tr class="table-active">
+                        <td colspan="4" class="font-weight-bold"><label asp-for="WorkableByFaculty" class="control-label m-0 p-0"></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <textarea asp-for="WorkableByFaculty" class="form-control" ></textarea>
+                            <span asp-validation-for="WorkableByFaculty" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </div>
+                <div class="form-group">
+                    <tr class="table-active">
+                        <td colspan="4" class="font-weight-bold"><label asp-for="ProjectPaidFor" class="control-label m-0 p-0"></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <textarea asp-for="ProjectPaidFor" class="form-control" ></textarea>
+                            <span asp-validation-for="ProjectPaidFor" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </div>
+                <div class="form-group">
+                    <tr class="table-active">
+                        <td colspan="4" class="font-weight-bold"><label asp-for="ImpactOnCommunity" class="control-label m-0 p-0"></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <textarea asp-for="ImpactOnCommunity" class="form-control" ></textarea>
+                            <span asp-validation-for="ImpactOnCommunity" class="text-danger"></span>
+                        </td>
+                    </tr>
+                </div>
+            </tbody>
+        </table>
+        <br />
+        <h4>Preliminary Discussion Decision</h4>
+        <hr />
+        <fieldset class="form-group">
+            <div class="row align-middle">
+                <legend class="col-form-label col-sm-4 pt-0"><label asp-for="ProjectWorthDeveloping" class="control-label m-0 p-0"></label></legend>
+                <div class="col-sm-6">
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(model => model.ProjectWorthDeveloping, "Y", new { @class = "form-check-input projectWorthDeveloping", @id = "projectWorthDevelopingY" })
+                        @Html.Label("Yes", "Yes", new { @for = "projectWorthDevelopingY", @class = "form-check-label" })
+                    </div>
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(model => model.ProjectWorthDeveloping, "N", new { @class = "form-check-input projectWorthDeveloping", @id = "projectWorthDevelopingN" })
+                        @Html.Label("No", "No", new { @for = "projectWorthDevelopingN", @class = "form-check-label" })
+                    </div>
+                    <span asp-validation-for="ProjectWorthDeveloping" class="text-danger"></span>
+                </div>
+                <div class="col-sm-2">
+                    <input type="submit" value="Apply changes" class="btn-lg btn-danger progressColor1 float-right">
+                </div>
+            </div>
+        </fieldset>
+
+    </form>
+    <br />
+    <div class="text-center">
+        <a asp-controller="Home" asp-action="Index" >Discard and return to Project List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

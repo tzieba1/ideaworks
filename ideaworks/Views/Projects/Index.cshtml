@@ -1,0 +1,126 @@
+﻿@model PaginatedList<Project>
+
+
+@{
+    ViewData["Title"] = "Home";
+    string alterClass = "";
+}
+
+<h3>List of Projects</h3>
+<hr />
+<br />
+
+<form class="form-horizontal" asp-action="Index" method="get" style="display: inline-block; width: fit-content();">
+    <div class="form-group row">
+        <label for="projectStatusFilterDropDown" class="control-label col-md-auto col-form-label mt-1 mb-1">Filter by Project Status</label>
+        <div class="col-md-auto mt-1 mb-1">
+            <select class="form-control" id="projectStatusFilterDropDown" name="ProjectStatusFilter">
+                <option></option>
+                @foreach (var i in ViewBag.StatusFilters)
+                {
+                    @if (i.Equals(ViewBag.CurrentFilter))
+                    {
+                        <option selected>@i</option>
+                    }
+                    else
+                    {
+                        <option>@i</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-md-auto mt-1 mb-1"><input type="submit" value="Search" class="btn btn-danger progressColor1" /></div>
+        <div class="col-md-auto align-self-center mt-1 mb-1"><a asp-action="Index">All Projects</a></div>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ProjectId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].CompanyInformation.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].CompanyInformation.ContactName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ProjectStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].SubmissionDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            int timediff = Convert.ToInt32((Convert.ToDateTime(item.SubmissionDate.ToString()) - DateTime.Now).TotalDays * -1);
+            if (item.ProposalInformation.Urgency.Contains("Y"))
+            {
+                alterClass = "urgent";
+            }
+            else
+            {
+                alterClass = "";
+            }
+            <tr class="@alterClass">
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProjectId">
+                        <b>@Html.DisplayFor(modelItem => item.ProjectId)</b>
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyInformation.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyInformation.ContactName)
+                </td>
+
+                @if (item.ProjectStatus.Contains("PENDING") && timediff >= 14)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectStatus) &nbsp; <span class="badge badge-pill badge-warning">@timediff days</span>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectStatus)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubmissionDate)
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div >
+    <span class="float-right">
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-danger btn-sm progressColor1 @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-danger btn-sm progressColor1 @nextDisabled">
+            Next
+        </a>
+    </span>
+</div>
+

@@ -1,0 +1,211 @@
+﻿@model ideaworks.Models.Project
+
+@{
+    ViewData["Title"] = "Project Details";
+}
+
+<h3>Project Details</h3>
+<hr />
+<br />
+
+<div>
+
+    <div class="row">
+        <div class="col">
+            @Html.DisplayNameFor(model => model.ProjectId) : <b> @Html.DisplayFor(model => model.ProjectId)</b>
+        </div>
+        <div class="col">
+            @Html.DisplayNameFor(model => model.ProjectStatus) : <b> @Html.DisplayFor(model => model.ProjectStatus) </b>
+        </div>
+        <div class="col">
+            @Html.DisplayNameFor(model => model.SubmissionDate) : <b> @Html.DisplayFor(model => model.SubmissionDate)</b>
+        </div>
+        @if (Model.ProposalInformation.Urgency.Contains("Y"))
+        {
+            <text>
+                <div class="col">
+                    <b><p class="text-danger">May require urgent attention!</p></b>
+                </div>
+            </text>
+        }
+
+    </div>
+    <br />
+   
+    <h4>About Client</h4>
+    <hr />
+
+    <table class="table table-bordered"
+        <tbody>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.CompanyInformation.ContactName)</td>
+                <td colspan="3" class="font-weight-bold">@Html.DisplayFor(model => model.CompanyInformation.ContactName)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.CompanyInformation.Email)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.CompanyInformation.Email)</td>
+                <td>@Html.DisplayNameFor(model => model.CompanyInformation.Phone)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.CompanyInformation.Phone)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.CompanyInformation.CompanyName)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.CompanyInformation.CompanyName)</td>
+                <td>@Html.DisplayNameFor(model => model.CompanyInformation.Website)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.CompanyInformation.Website)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.CompanyInformation.CoreCompanyBusiness)</td>
+                <td colspan="3" class="font-weight-bold">@Html.DisplayFor(model => model.CompanyInformation.CoreCompanyBusiness)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.CompanyInformation.YearsOfExistance)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.CompanyInformation.YearsOfExistance)</td>
+                <td>@Html.DisplayNameFor(model => model.CompanyInformation.NumberOfEmployees)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.CompanyInformation.NumberOfEmployees)</td>
+            </tr>
+            <tr>
+
+                <td>@Html.DisplayNameFor(model => model.CompanyInformation.IsCanadianBased)</td>
+                <td class="font-weight-bold">
+                    @if (Model.CompanyInformation.IsCanadianBased.Contains("Y")) { <span>Yes</span> } else { <span>No</span> }
+                </td>
+                @if (Model.CompanyInformation.IsCanadianBased.Contains("Y"))
+                {
+                    <text>
+                        <td>@Html.DisplayNameFor(model => model.CompanyInformation.IsOntarioBased)</td>
+                        <td class="font-weight-bold">
+                            @if (Model.CompanyInformation.IsOntarioBased.Contains("Y"))
+                            {<span>Yes</span> }
+                            else
+                            { <span>No</span>}
+                        </td>
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        <td>Orgtanization Location</td>
+                        <td class="font-weight-bold">@Html.DisplayFor(model => model.CompanyInformation.OrganizationLocation)</td>
+                    </text>
+                }
+            </tr>
+
+        </tbody>
+    </table>
+
+    <table class="table table-bordered text-center"
+        <tbody>
+            <tr>
+                <td>Previously collaborated with IDEAWORKS</td>
+                <td>Has internal Research & Development Department</td>
+                <td>Intend to hire students and graduates</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">@if (Model.CompanyInformation.PreviousCollaborationWithResearch.Contains("Y")) { <span>Yes</span> } else { <span>No</span> }</td>
+                <td class="font-weight-bold">@if (Model.CompanyInformation.InternalResearchExists.Contains("Y")) { <span>Yes</span> } else { <span>No</span> }</td>
+                <td class="font-weight-bold">@if (Model.CompanyInformation.IntentionToHireStudents.Contains("Y")) { <span>Yes</span> } else { <span>No</span> }</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <br />
+    <h4>About Project</h4>
+    <hr />
+
+    <table class="table table-bordered"
+        <tbody>
+            <tr>
+                <th class="align-middle">Challenge</th>
+                <td>@Html.DisplayFor(model => model.ProjectInformation.Challenges)</td>
+            </tr>
+            <tr>
+                <th class="align-middle">Impact</th>
+                <td>@Html.DisplayFor(model => model.ProjectInformation.ProjectImpact)</td>
+            </tr>
+            <tr>
+                <th class="align-middle">Usage</th>
+                <td>@Html.DisplayFor(model => model.ProjectInformation.ProjectUsage)</td>
+            </tr>
+            <tr>
+                <th class="align-middle">Outcome</th>
+                <td>@Html.DisplayFor(model => model.ProjectInformation.ProjectOutcome)</td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <h4>Additional Information</h4>
+    <hr />
+    @if (Model.ProposalInformation.Urgency.Contains("Y"))
+    {
+        <text><p class="text-danger">May require urgent attention!</p></text>
+    }
+
+    <table class="table table-bordered"
+        <tbody>
+            <tr>
+                <td>Company Type</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.ProposalInformation.ParentOrSubsidiary)</td>
+                <td>@Html.DisplayNameFor(model => model.ProposalInformation.AreaOfResearch)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.ProposalInformation.AreaOfResearch)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.ProposalInformation.AuthorizedRepresentativeName)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.ProposalInformation.AuthorizedRepresentativeName)</td>
+                <td>@Html.DisplayNameFor(model => model.ProposalInformation.AuthorizedRepresentativePosition)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.ProposalInformation.AuthorizedRepresentativePosition)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.ProposalInformation.AuthorizedRepresentativeEmail)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.ProposalInformation.AuthorizedRepresentativeEmail)</td>
+                <td>@Html.DisplayNameFor(model => model.ProposalInformation.AuthorizedRepresentativePhone)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.ProposalInformation.AuthorizedRepresentativePhone)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.ProposalInformation.NumberOfEmployeesInCanada)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.ProposalInformation.NumberOfEmployeesInCanada)</td>
+                <td>@Html.DisplayNameFor(model => model.ProposalInformation.NumberOfResearchStaffInCanada)</td>
+                <td class="font-weight-bold">@Html.DisplayFor(model => model.ProposalInformation.NumberOfResearchStaffInCanada)</td>
+            </tr>
+            <tr>
+                <td colspan="2">@Html.DisplayNameFor(model => model.ProposalInformation.SuggestedBy)</td>
+                <td class="font-weight-bold" colspan="2">@Html.DisplayFor(model => model.ProposalInformation.SuggestedBy)</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="font-weight-bold">Additional Information</td>
+            </tr>
+            <tr>
+                <td colspan="4">@Html.DisplayFor(model => model.ProposalInformation.ExtraInformation)</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <br />
+    <h4>Evaluation</h4>
+    <hr />
+
+    <div class="row">
+        <div class="col">
+            <a asp-controller="FirstStages" asp-action="Create"><button type="button" class="btn-lg btn-danger progressColor1 w-100">Preliminary Discussion</button> </a>
+        </div>
+        <div class="col">
+            <a asp-controller="SecondStages" asp-action="Create"><button type="button" class="btn-lg btn-danger progressColor1 w-100">Assessment</button> </a>
+        </div>
+        <div class="col">
+            <a asp-controller="ThirdStages" asp-action="Create"><button type="button" class="btn-lg btn-danger progressColor1 w-100">Funding Application</button> </a>
+        </div>
+        <div class="col">
+            <a asp-controller="Feedback" asp-action="Create"><button type="button" class="btn-lg btn-danger progressColor1 w-100">Decision</button> </a>
+        </div>
+    </div>
+
+</div>
+<br />
+<div class="text-center">
+    <!--<a asp-action="Edit" asp-route-id="@Model.ProjectId">Edit</a> |-->
+    <a asp-action="Index">Back to List</a> 
+    @if (Model.ProjectStatus.Equals("REJECTED") || Model.ProjectStatus.Equals("APPROVED"))
+    { 
+    <a asp-action="ResetStatusToPending" asp-controller="Projects" asp-route-id="@Model.ProjectId">| Reset Status to Pending</a> 
+    }
+</div>

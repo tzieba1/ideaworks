@@ -1,0 +1,171 @@
+﻿@model ideaworks.Models.SecondStage
+
+@{
+    ViewData["Title"] = "Project (projectID) - Assessment";
+}
+
+<h3>Assessment (stage 2)</h3>
+<hr />
+<br />
+
+<div>
+
+    <div class="row">
+        <div class="col">
+            @Html.DisplayNameFor(model => model.ProjectId) : <b> @Html.DisplayFor(model => model.ProjectId)</b>
+        </div>
+        <div class="col">
+            <!-- @@Html.DisplayNameFor(model => model.ProjectStatus) : <b> @@Html.DisplayFor(model => model.ProjectStatus) </b> -->
+        </div>
+        <div class="col">
+            <!-- @@Html.DisplayNameFor(model => model.SubmissionDate) : <b> @@Html.DisplayFor(model => model.SubmissionDate)</b> -->
+        </div>
+        <!--@@if (Model.ProposalInformation.Urgency.Contains("Y"))
+        {
+            <text>
+                <div class="col">
+                    <b><p class="text-danger">May require urgent attention!</p></b>
+                </div>
+            </text>
+        }
+            -->
+    </div>
+<br />
+
+<h4>Assessment Notes</h4>
+<hr />
+
+<form asp-action="Create">
+    <table class="table table-bordered">
+
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <tbody>
+            <div class="form-group">
+                <tr class="table-active">
+                    <td colspan="4"><label asp-for="MulitcentreCollaboration" class="control-label m-0 p-0"></label></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <textarea asp-for="MulitcentreCollaboration" class="form-control"></textarea>
+                        <span asp-validation-for="MulitcentreCollaboration" class="text-danger"></span>
+                    </td>
+                </tr>
+            </div>
+            <div class="form-group">
+                <tr class="table-active">
+                    <td colspan="4" class="font-weight-bold"><label asp-for="InterestAreaLink" class="control-label m-0 p-0"></label></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <textarea asp-for="InterestAreaLink" class="form-control"></textarea>
+                        <span asp-validation-for="InterestAreaLink" class="text-danger"></span>
+                    </td>
+                </tr>
+            </div>
+            <div class="form-group">
+                <tr class="table-active">
+                    <td colspan="4" class="font-weight-bold"><label asp-for="InterestedFacultyParticipation" class="control-label m-0 p-0"></label></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <textarea asp-for="InterestedFacultyParticipation" class="form-control"></textarea>
+                        <span asp-validation-for="InterestedFacultyParticipation" class="text-danger"></span>
+                    </td>
+                </tr>
+            </div>
+            <div class="form-group">
+                <tr class="table-active">
+                    <td colspan="4" class="font-weight-bold"><label asp-for="RelatedToIot" class="control-label m-0 p-0"></label></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <textarea asp-for="RelatedToIot" class="form-control"></textarea>
+                        <span asp-validation-for="RelatedToIot" class="text-danger"></span>
+                    </td>
+                </tr>
+            </div>
+            <div class="form-group">
+                <tr class="table-active">
+                    <td colspan="4" class="font-weight-bold"><label asp-for="MoreInfomationRequired" class="control-label m-0 p-0"></label></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <textarea asp-for="MoreInfomationRequired" class="form-control"></textarea>
+                        <span asp-validation-for="MoreInfomationRequired" class="text-danger"></span>
+                    </td>
+                </tr>
+            </div>
+            <div class="form-group">
+                <tr class="table-active">
+                    <td colspan="4" class="font-weight-bold"><label asp-for="LeadCentres" class="control-label m-0 p-0"></label></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <input asp-for="LeadCentres" class="form-control" maxlength="99"/>
+                        <span asp-validation-for="LeadCentres" class="text-danger"></span>
+                    </td>
+                </tr>
+            </div>
+            <div class="form-group">
+                <tr class="table-active">
+                    <td colspan="4" class="font-weight-bold"><label asp-for="GeneralScope" class="control-label m-0 p-0"></label></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <textarea asp-for="GeneralScope" class="form-control"></textarea>
+                        <span asp-validation-for="GeneralScope" class="text-danger"></span>
+                        <br />
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-4 pt-0"><label asp-for="GeneralScopeConfirmed" class="control-label"></label></legend>
+                                <div class="col-sm-8">
+                                    <div class="form-check form-check-inline">
+                                        @Html.RadioButtonFor(model => model.GeneralScopeConfirmed, "Y", new { @class = "form-check-input", @id = "scopeConfirmedY" })
+                                        @Html.Label("Yes", "Yes", new { @for = "scopeConfirmedY", @class = "form-check-label" })
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        @Html.RadioButtonFor(model => model.GeneralScopeConfirmed, "N", new { @class = "form-check-input", @id = "scopeConfirmedN" })
+                                        @Html.Label("No", "No", new { @for = "scopeConfirmedN", @class = "form-check-label" })
+                                    </div>
+                                    <span asp-validation-for="GeneralScopeConfirmed" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </td>
+                </tr>
+            </div
+        </tbody>
+    </table>
+    <br />
+    <h4>Assessment Decision</h4>
+    <hr />
+    <fieldset class="form-group">
+        <div class="row align-middle">
+            <legend class="col-form-label col-sm-4 pt-0"><label asp-for="FeasibleForIdeaworks" class="control-label m-0 p-0"></label></legend>
+            <div class="col-sm-6">
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.FeasibleForIdeaworks, "Y", new { @class = "form-check-input", @id = "projectFeasibleY" })
+                    @Html.Label("Yes", "Yes", new { @for = "projectFeasibleY", @class = "form-check-label" })
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.FeasibleForIdeaworks, "N", new { @class = "form-check-input", @id = "projectFeasibleN" })
+                    @Html.Label("No", "No", new { @for = "projectFeasibleN", @class = "form-check-label" })
+                </div>
+                <span asp-validation-for="FeasibleForIdeaworks" class="text-danger"></span>
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" value="Apply changes" class="btn-lg btn-danger progressColor1 float-right">
+            </div>
+        </div>
+    </fieldset>
+
+</form>
+<br />
+<div class="text-center">
+    <a asp-controller="Home" asp-action="Index">Discard and return to Project List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
