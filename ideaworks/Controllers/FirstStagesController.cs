@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ideaworks.Data;
 using ideaworks.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ideaworks.Controllers
 {
@@ -15,6 +16,7 @@ namespace ideaworks.Controllers
     /// First Stage of the evaluation process
     /// Roshan Shah
     /// </summary>
+    [Authorize]
     public class FirstStagesController : Controller
     {
         private readonly ApplicationDbContext _context;

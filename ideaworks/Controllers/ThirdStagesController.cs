@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using ideaworks.Data;
 using ideaworks.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ideaworks.Controllers
 {
+    [Authorize]
     public class ThirdStagesController : Controller
     {
         private readonly ApplicationDbContext _context;

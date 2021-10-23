@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ideaworks.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ideaworks.Models
 {
+    [Authorize]
     public class SecondStagesController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -1,5 +1,6 @@
 ﻿using ideaworks.Data;
 using ideaworks.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -33,6 +34,7 @@ namespace ideaworks.Controllers
         }
 
         // GET: FeedbackController/Create
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             //getting the project id from the session varibale

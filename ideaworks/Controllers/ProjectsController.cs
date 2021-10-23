@@ -9,6 +9,7 @@ using ideaworks.Data;
 using ideaworks.Models;
 using Microsoft.AspNetCore.Http;
 using System.Dynamic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ideaworks.Controllers
 {
@@ -66,6 +67,7 @@ namespace ideaworks.Controllers
         }
 
         // GET: Projects/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(long? id)
         {
 
@@ -89,6 +91,8 @@ namespace ideaworks.Controllers
         /// <summary>
         /// Update the status for a rejected proposal to pending for re-assessment
         /// </summary>
+        /// 
+        [Authorize]
         public IActionResult ResetStatusToPending(long id)
         {
             //fetch the project with the id 
