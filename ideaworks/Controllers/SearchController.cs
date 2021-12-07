@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ideaworks.Controllers
 {
+    [Authorize]
     public class SearchController : Controller
     {
         //statuses of the projects
